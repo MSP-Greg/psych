@@ -1,4 +1,4 @@
-name: Psych
+name: CI
 
 on: [push, pull_request]
 
