@@ -3,9 +3,9 @@ name: Psych
 on: [push, pull_request]
 
 jobs:
-  pass:
+  required:
     name: >-
-      pass ${{ matrix.os }} ${{ matrix.ruby }}
+      ${{ matrix.os }} ${{ matrix.ruby }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -38,9 +38,9 @@ jobs:
       - name: Install gem
         run:  rake install        
 
-  fail:
+  optional:
     name: >-
-      fail ${{ matrix.os }} ${{ matrix.ruby }}
+      optional: ${{ matrix.os }} ${{ matrix.ruby }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
