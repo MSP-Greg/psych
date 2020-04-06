@@ -23,7 +23,6 @@ jobs:
         uses: MSP-Greg/setup-ruby-pkgs@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          apt-get: haveged
           mingw: _upgrade_
 
       - name: Install dependencies
