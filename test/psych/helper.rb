@@ -126,3 +126,9 @@ unless Tempfile.respond_to? :create
     end
   end
 end
+
+if defined?(Minitest::Test)
+  Minitest.after_run do
+    puts "\n#{RUBY_DESCRIPTION}\nlibyaml version: #{Psych::LIBYAML_VERSION}"
+  end
+end
