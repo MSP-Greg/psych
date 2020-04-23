@@ -4,11 +4,17 @@ on: [push, pull_request]
 
 jobs:
   build:
+    name: >-
+      libyaml: ${{ matrix.libyaml }}, ${{ matrix.ruby }}
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
         ruby: [ mingw, mswin, 2.7, 2.6, 2.5, 2.4 ]
+        libyaml: [ system ]
+        include:
+          - { ruby: mingw, libyaml: vendored }
+          - { ruby: 2.4  , libyaml: vendored }
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
@@ -17,6 +23,9 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           mingw: _upgrade_
       - name: Install dependencies
-        run: bundle install
+        run:  bundle install
+      - name: remove system libyaml
+        if:   matrix.libyaml == 'vendored'
+        run:  pacman -R --noconfirm mingw-w64-x86_64-libyaml
       - name: Run test
-        run: rake
+        run:  rake
